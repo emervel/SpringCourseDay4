@@ -6,7 +6,8 @@ import com.curso.springdaohibernate.dominio.Persona;
 import java.util.List;
 
 /**
- * Interfaz que establecerá los metodos a ser utilizados por el DAO
+ * Interfaz que establecerá los metodos a ser utilizados por el DAO 
+ * Se pone como una interfaz para conseguir separar la capa de servicios ni de la capa de acceso a datos
  * @author Emervel
  */
 public interface PersonaDao {

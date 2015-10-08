@@ -24,6 +24,7 @@ public class PersonaDaoHibernate extends HibernateDaoSupport implements PersonaD
 
     @Override
     public List getPersonas() {
+        /*este metodo que heredamos nos crea un template de acceso a datos usando HSQL*/
         return getHibernateTemplate().find("from Persona p order by p.nombre");
     }
 
@@ -77,6 +78,9 @@ public class PersonaDaoHibernate extends HibernateDaoSupport implements PersonaD
     public List<Aficion> getAficionesDeOtraManera(final Integer id) {
         return getHibernateTemplate().execute(new HibernateCallback<List<Aficion>>() {
 
+            /*Este método es puro de Hibernate, por lo que no depende de Spring. Si mi versión de Spring
+            no es compatible con mi nueva versión de Hibernate (es decir no me vale con el template), 
+            este método sería donde podríamos saltarnos a Spring e interaccionar directamente con Hibernate*/
             @Override
             public List<Aficion> doInHibernate(Session session) {
                 Persona p = (Persona) session.load(Persona.class, id);

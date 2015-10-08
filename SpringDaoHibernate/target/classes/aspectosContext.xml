@@ -9,7 +9,12 @@
        http://www.springframework.org/schema/aop 
        http://www.springframework.org/schema/aop/spring-aop.xsd
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!--Esta etiqueta activa los aspectos-->
+    <aop:aspectj-autoproxy/>
+    
+    <!--Estos son los beanes de nuestros aspectos que deben estar como beanes en la configuracion de 
+    Spring. Las transacciones tb eran aspectos pero como hemos usado una clase de Spring no es necesario redefinirla-->
     <bean id="profiler" class="com.curso.springdaohibernate.aspectos.Profiler"/>
     <bean id="recuperacion" class="com.curso.springdaohibernate.aspectos.Recuperacion"/>
-    <aop:aspectj-autoproxy/>
 </beans>

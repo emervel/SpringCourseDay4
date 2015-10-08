@@ -85,6 +85,11 @@ public class Principal {
         System.out.println("Probando el aspecto de recuperación...");
         try {
             Persona p = s.getPersona(20000);
+            /*Con spring, se nos mete un mapeo automático de excepciones, de modo que aunque hibernate
+            este lanzando una sqlexpection, Spring nos traduce esa excepcion en una DataAccessException.
+            Asi, si en algún momento cambiamos la tecnologia de acceso a datos (p.e. de Hibernate a JPA)
+            no tendremos que cambiar nuestro tratamiento de excepciones de la capa de servicios
+            */
         } catch (DataAccessException e) {
             System.out.println("Excepción de tipo DataAccessException");
         }
