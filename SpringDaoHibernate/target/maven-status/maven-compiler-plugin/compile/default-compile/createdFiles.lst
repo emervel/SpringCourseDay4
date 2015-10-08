@@ -1,0 +1,10 @@
+com\curso\springdaohibernate\aspectos\Recuperacion.class
+com\curso\springdaohibernate\Principal.class
+com\curso\springdaohibernate\dao\PersonaDao.class
+com\curso\springdaohibernate\dominio\Aficion.class
+com\curso\springdaohibernate\dao\hibernate\PersonaDaoHibernate.class
+com\curso\springdaohibernate\servicios\ServicioPersona.class
+com\curso\springdaohibernate\dao\hibernate\PersonaDaoHibernate$1.class
+com\curso\springdaohibernate\dominio\Persona.class
+com\curso\springdaohibernate\aspectos\Profiler.class
+com\curso\springdaohibernate\servicios\ServicioPersonaImpl.class

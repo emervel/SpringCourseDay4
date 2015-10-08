@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-lazy="false">
+  <class name="com.curso.springdaohibernate.dominio.Persona" table="personas">
+    
+    <!--Indica la clave primaria que se utilizara en la tabla-->  
+    <id column="id_persona" name="id">
+      <generator class="identity"/>
+    </id>
+    
+    <!--Establece las columnas que serán persistentes-->
+    <property name="nombre"/>
+    
+    <!--Establece las relaciones entre persona y aficiones-->
+    <set cascade="all" inverse="true" lazy="true" name="aficionesInternas">
+      <key column="id_persona"/>
+      <one-to-many class="com.curso.springdaohibernate.dominio.Aficion"/>
+    </set>
+  </class>
+</hibernate-mapping>

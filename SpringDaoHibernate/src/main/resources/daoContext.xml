@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+  - Contexto de específico de acceso a datos
+  -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/aop 
+       http://www.springframework.org/schema/aop/spring-aop.xsd
+       http://www.springframework.org/schema/tx 
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+    
+    <!--Aquí realizo la inyeccion de dependencias para separar las capas de DAO de las de Servicios-->
+    <bean id="personaDao" class="com.curso.springdaohibernate.dao.hibernate.PersonaDaoHibernate">
+        <property name="sessionFactory" ref="sessionFactory"/>
+    </bean>
+    <bean id="servicioPersona" class="com.curso.springdaohibernate.servicios.ServicioPersonaImpl">
+        <property name="personaDao" ref="personaDao"/>
+    </bean>
+    
+    
+    <aop:config>
+        <!--hacemos el servicio transaccional en vez del DAO por si necesito encadenar
+            varios DAOs que en caso de error deben hacerse todos Rollback-->
+        <!--Seran transaccionales todos los metodos de todas las clases que implementen la 
+            interfaz serviciopersona (mira tu por donde como le sacamos utilidad a la interfaz).
+            Así que si esos metodos no empiezan por insert,update o delete serán de tipo transacción read-only -->
+        <aop:advisor pointcut="execution(* *..ServicioPersona.*(..))"
+               advice-ref="txAdvice"/>
+        <!--El codigo java del advice ya lo ha escrito Spring por mi, en este caso son las transacciones-->
+        
+    </aop:config>
+    <!--Aquí defino los método que serán transaccionales y si sólo leen o tb escriben.
+        Existen más atributos dentro de method y todos ellos usarán sus valores por defecto 
+        si no le decimos lo contrario. En una transaccion por defecto si salta una excepcion
+        se hará un rollback, pero si queremos que no pase podemos usar no-rollback-for.
+        Tb existe el atributo isolation para establecer los bloqueos de tablas mientras se 
+        finaliza la transaccion    -->
+    <tx:advice id="txAdvice">
+        <tx:attributes>
+            <tx:method name="insert*"/>
+            <tx:method name="update*"/>
+            <tx:method name="delete*"/>
+            <tx:method name="*" read-only="true"/>
+        </tx:attributes>
+    </tx:advice>
+</beans>
